@@ -8,4 +8,4 @@ RUN npm run build
 
 ### STAGE 2: Run ###
 FROM nginx:1.17.8-alpine
-COPY --from=builder /usr/src/app/dist/angular-app-testing-aws-codepipelines /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist/angular-app-testing-aws-codepipeline /usr/share/nginx/html
