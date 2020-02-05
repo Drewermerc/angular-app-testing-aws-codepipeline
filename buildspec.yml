@@ -5,7 +5,7 @@ env:
     REPOSITORY_URI : "947355239983.dkr.ecr.us-west-1.amazonaws.com/angular-app-testing-aws-codepipeline"
     IMAGE_NAME : "angular-app-testing-aws-codepipeline"
     COMMIT_HASH : "$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)"
-    IMAGE_VERSION : "$COMMIT_HASH-latest"
+    IMAGE_VERSION : $COMMIT_HASH+"-latest"
 
 
 phases:
