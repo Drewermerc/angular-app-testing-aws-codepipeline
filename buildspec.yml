@@ -5,7 +5,7 @@ env:
     REPOSITORY_URI : "947355239983.dkr.ecr.us-west-1.amazonaws.com/angular-app-testing-aws-codepipeline"
     IMAGE_NAME : "angular-app-testing-aws-codepipeline"
     COMMIT_HASH : "$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)"
-    IMAGE_VERSION : $COMMIT_HASH+"-latest"
+    IMAGE_VERSION : "latest"
 
 
 phases:
@@ -22,12 +22,12 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build --tag $IMAGE_NAME:$IMAGE_VERSION .
+      - docker build --tag $IMAGE_NAME:$COMMIT_HASH-$IMAGE_VERSION .
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Tag the Docker image...
-      - docker tag $IMAGE_NAME:$IMAGE_VERSION $REPOSITORY_URI:$IMAGE_VERSION
+      - docker tag $IMAGE_NAME:$COMMIT_HASH-$IMAGE_VERSION $REPOSITORY_URI:$COMMIT_HASH-$IMAGE_VERSION
       - echo Pushing the Docker image...
-      - docker push $REPOSITORY_URI:$IMAGE_VERSION
+      - docker push $REPOSITORY_URI:$COMMIT_HASH-$IMAGE_VERSION
